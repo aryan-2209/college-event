@@ -139,6 +139,24 @@ const Events = () => {
         }
     };
 
+    const handleDeleteEvent = async (eventId) => {
+        if (!window.confirm("Are you sure you want to delete this event? This action cannot be undone.")) return;
+
+        try {
+            const token = localStorage.getItem('token');
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            };
+            await axios.delete(`http://localhost:5000/api/events/${eventId}`, config);
+            setEvents(prev => prev.filter(e => e._id !== eventId));
+            setFilteredEvents(prev => prev.filter(e => e._id !== eventId));
+            alert("Event deleted successfully");
+        } catch (error) {
+            console.error(error);
+            alert(error.response?.data?.message || "Failed to delete event");
+        }
+    };
+
     return (
         <div className="min-h-screen pb-20">
             <Navbar />
@@ -217,6 +235,7 @@ const Events = () => {
                                     event={event}
                                     onRegister={handleRegisterClick}
                                     onDeregister={handleDeregister}
+                                    onDelete={handleDeleteEvent}
                                     isRegistered={registrations.includes(event._id)}
                                 />
                             </motion.div>

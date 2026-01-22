@@ -1,9 +1,11 @@
-import { Calendar, MapPin, Tag } from 'lucide-react';
+import { Calendar, MapPin, Tag, Trash } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Button from './Button';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
-const EventCard = ({ event, onRegister, onDeregister, isRegistered }) => {
+const EventCard = ({ event, onRegister, onDeregister, onDelete, isRegistered }) => {
+    const { user } = useAuth();
     const formatDate = (dateString) => {
         return new Date(dateString).toLocaleDateString('en-US', {
             weekday: 'long',
@@ -61,7 +63,15 @@ const EventCard = ({ event, onRegister, onDeregister, isRegistered }) => {
 
                 <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/10">
                     <div className="flex items-center">
-                        {/* Organizer info removed */}
+                        {user?.role === 'admin' && onDelete && (
+                            <button
+                                onClick={() => onDelete(event._id)}
+                                className="text-red-400 hover:text-red-300 transition-colors p-2 rounded-full hover:bg-red-500/10"
+                                title="Delete Event"
+                            >
+                                <Trash className="h-5 w-5" />
+                            </button>
+                        )}
                     </div>
 
                     {isRegistered ? (

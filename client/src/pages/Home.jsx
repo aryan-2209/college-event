@@ -1,11 +1,74 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Users, Star, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import Navbar from '../components/Navbar';
+import EventCard from '../components/EventCard';
+import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const Home = () => {
+    const [recentEvents, setRecentEvents] = useState([]);
+    const [registrations, setRegistrations] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const { user } = useAuth();
+
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                // Determine if we are in dev or prod, assuming local for now based on context
+                const response = await fetch('http://localhost:5000/api/events');
+                const data = await response.json();
+
+                const sorted = data.reverse().slice(0, 3);
+                setRecentEvents(sorted);
+
+                // Fetch registrations if needed for "isRegistered" check
+                const token = localStorage.getItem('token');
+                if (token) {
+                    const regRes = await axios.get('http://localhost:5000/api/registrations/my-registrations', {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    setRegistrations(regRes.data.filter(r => r.status === 'registered').map(r => r.event._id));
+                }
+
+            } catch (error) {
+                console.error("Failed to fetch events", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchEvents();
+    }, []);
+
+    const handleDeleteEvent = async (eventId) => {
+        if (!window.confirm("Are you sure you want to delete this event? This action cannot be undone.")) return;
+
+        try {
+            const token = localStorage.getItem('token');
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            };
+            await axios.delete(`http://localhost:5000/api/events/${eventId}`, config);
+            setRecentEvents(prev => prev.filter(e => e._id !== eventId));
+            alert("Event deleted successfully");
+        } catch (error) {
+            console.error(error);
+            alert(error.response?.data?.message || "Failed to delete event");
+        }
+    };
+
+    const handleRegisterClick = (eventId) => {
+        // Simplification: Redirect to /events for registration flows to avoid duplicating modal logic in Home
+        // OR, assume user handles it in /events. 
+        // For better UX, let's just link to /events or show a simple alert "Please go to Explore Events to register".
+        // But wait, EventCard calls `onRegister(eventId)`.
+        window.location.href = `/events`; // Simple redirect for now
+    };
+
+
     return (
         <div className="min-h-screen">
             <Navbar />
@@ -57,6 +120,48 @@ const Home = () => {
                                 </Button>
                             </Link>
                         </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Upcoming/Recent Events Section */}
+            <section className="py-20 bg-gray-900/50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold text-white mb-4">Latest Events</h2>
+                        <p className="text-gray-400">Check out what's new on campus</p>
+                    </div>
+
+                    {loading ? (
+                        <div className="text-center text-white">Loading events...</div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {recentEvents.map(event => (
+                                <Link to={`/events`} key={event._id} className="block group">
+                                    <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg transition-transform transform group-hover:-translate-y-2 group-hover:shadow-2xl border border-gray-700">
+                                        <div className="h-48 overflow-hidden">
+                                            <img src={event.image || 'https://via.placeholder.com/400x200'} alt={event.title} className="w-full h-full object-cover transition-transform group-hover:scale-110" />
+                                        </div>
+                                        <div className="p-6">
+                                            <div className="flex justify-between items-start mb-2">
+                                                <span className="bg-indigo-600 text-white text-xs px-2 py-1 rounded-full">{event.category}</span>
+                                                <span className="text-gray-400 text-sm">{new Date(event.date).toLocaleDateString()}</span>
+                                            </div>
+                                            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">{event.title}</h3>
+                                            <p className="text-gray-400 text-sm line-clamp-2">{event.description}</p>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    )}
+
+                    <div className="text-center mt-12">
+                        <Link to="/events">
+                            <Button variant="ghost" className="text-indigo-400 hover:text-indigo-300">
+                                View All Events <ArrowRight className="ml-2 h-4 w-4" />
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </section>

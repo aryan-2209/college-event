@@ -13,6 +13,8 @@ const Login = () => {
     const { login } = useAuth();
     const navigate = useNavigate();
 
+    const [isAdminLogin, setIsAdminLogin] = useState(false);
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -24,8 +26,16 @@ const Login = () => {
 
         try {
             const response = await axios.post('http://localhost:5000/api/auth/login', formData);
-            login(response.data.user, response.data.token);
-            navigate('/dashboard'); // Will create this next
+            const userData = response.data.user;
+
+            if (isAdminLogin && userData.role !== 'admin') {
+                setError('Access denied. You are not an admin.');
+                setLoading(false);
+                return;
+            }
+
+            login(userData, response.data.token);
+            navigate('/dashboard');
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed');
         } finally {
@@ -98,6 +108,20 @@ const Login = () => {
                                     onChange={handleChange}
                                 />
                             </div>
+                        </div>
+
+                        <div className="flex items-center">
+                            <input
+                                id="admin-login"
+                                name="admin-login"
+                                type="checkbox"
+                                checked={isAdminLogin}
+                                onChange={(e) => setIsAdminLogin(e.target.checked)}
+                                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                            />
+                            <label htmlFor="admin-login" className="ml-2 block text-sm text-gray-300">
+                                Login as Admin
+                            </label>
                         </div>
 
                         <div>

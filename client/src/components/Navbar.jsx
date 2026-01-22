@@ -33,6 +33,11 @@ const Navbar = () => {
                         <Link to="/events" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
                             Explore Events
                         </Link>
+                        {(user?.role === 'admin' || user?.role === 'club') && (
+                            <Link to="/create-event" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                                Create Event
+                            </Link>
+                        )}
                         <Link to="/contact" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
                             Contact
                         </Link>
