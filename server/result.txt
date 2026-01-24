@@ -1,0 +1,14 @@
+Script starting...
+MongoDB Connected
+Checking for events between Sat Jan 24 2026 00:00:00 GMT+0530 (India Standard Time) and Sat Jan 24 2026 23:59:59 GMT+0530 (India Standard Time)
+Found 1 events for tomorrow.
+Found 8 students.
+Processing event: check events
+Email sent to aryan@gmail.com for event check events
+Email sent to payal@gmail.com for event check events
+Email sent to aryan1@gmail.com for event check events
+Email sent to aryan2@gmail.com for event check events
+Email sent to payal1@gmail.com for event check events
+Email sent to alien@gmail.com for event check events
+Email sent to 22it3010@rgipt.ac.in for event check events
+Email sent to 22it3028@rgipt.ac.in for event check events

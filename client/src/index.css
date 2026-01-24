@@ -3,7 +3,105 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-teal-glow: #14b8a6;
+    --color-cyan-glow: #06b6d4;
+  }
+
   body {
-    @apply bg-gray-900 text-white font-sans antialiased;
+    @apply bg-black text-white font-sans antialiased;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Glowing Vignette Effect */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(
+      ellipse at 50% 50%,
+      transparent 0%,
+      transparent 40%,
+      rgba(20, 184, 166, 0.15) 70%,
+      rgba(6, 182, 212, 0.25) 100%
+    );
+  }
+
+  /* Ensure content is above vignette */
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@layer utilities {
+  /* Glow Pulse Animation */
+  @keyframes glow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(20, 184, 166, 0.5),
+                  0 0 40px rgba(20, 184, 166, 0.3),
+                  0 0 60px rgba(20, 184, 166, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(20, 184, 166, 0.7),
+                  0 0 60px rgba(20, 184, 166, 0.5),
+                  0 0 90px rgba(20, 184, 166, 0.2);
+    }
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  /* Fade Up Animation */
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.6s ease-out forwards;
+  }
+
+  /* Slow Spin */
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
+  }
+
+  /* Teal Gradient Text */
+  .text-gradient-teal {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400;
+  }
+
+  /* Glowing Border */
+  .border-glow {
+    border: 1px solid rgba(20, 184, 166, 0.3);
+    box-shadow: 0 0 10px rgba(20, 184, 166, 0.2);
+  }
+
+  /* Glassmorphism */
+  .glass-effect {
+    @apply backdrop-blur-md bg-white/5 border border-white/10;
   }
 }

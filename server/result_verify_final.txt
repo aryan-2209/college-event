@@ -1,0 +1,23 @@
+(node:4748) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+MongoDB Connected
+Checking for events between Sat Jan 24 2026 00:00:00 GMT+0530 (India Standard Time) and Sat Jan 24 2026 23:59:59 GMT+0530 (India Standard Time)
+Found 1 events for tomorrow.
+Found 8 students.
+Processing event: check events
+Email sent: 250 2.0.0 OK  1769165675 d9443c01a7336-2a802edb3c4sm16918425ad.43 - gsmtp
+Email sent to aryan@gmail.com for event check events
+Email sent: 250 2.0.0 OK  1769165677 d9443c01a7336-2a802de5cd4sm17018675ad.40 - gsmtp
+Email sent to payal@gmail.com for event check events
+Email sent: 250 2.0.0 OK  1769165680 d9443c01a7336-2a802daa62fsm17503385ad.18 - gsmtp
+Email sent to aryan1@gmail.com for event check events
+Email sent: 250 2.0.0 OK  1769165682 98e67ed59e1d1-3536f25c4c5sm809939a91.6 - gsmtp
+Email sent to aryan2@gmail.com for event check events
+Email sent: 250 2.0.0 OK  1769165684 41be03b00d2f7-c635a142b5csm1835884a12.10 - gsmtp
+Email sent to payal1@gmail.com for event check events
+Email sent: 250 2.0.0 OK  1769165687 d9443c01a7336-2a802c9f2ddsm17178425ad.0 - gsmtp
+Email sent to alien@gmail.com for event check events
+Email sent: 250 2.0.0 OK  1769165689 98e67ed59e1d1-3536d8b8f7bsm1819594a91.6 - gsmtp
+Email sent to 22it3010@rgipt.ac.in for event check events
+Email sent: 250 2.0.0 OK  1769165691 d2e1a72fcca58-823186838dfsm1898807b3a.30 - gsmtp
+Email sent to 22it3028@rgipt.ac.in for event check events

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Calendar, Users, Star, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { Calendar, Users, Star, ArrowRight, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import Navbar from '../components/Navbar';
 import EventCard from '../components/EventCard';
+import Footer from '../components/Footer';
+import HeroAnimation from '../components/HeroAnimation';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
@@ -75,11 +77,14 @@ const Home = () => {
 
             {/* Hero Section */}
             <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-                <div className="absolute top-0 right-0 -z-10 opacity-30 transform translate-x-1/2 -translate-y-1/4">
-                    <svg viewBox="0 0 1000 1000" className="w-[800px] h-[800px] text-indigo-200 fill-current animate-spin-slow">
+                <div className="absolute top-0 right-0 -z-10 opacity-20 transform translate-x-1/2 -translate-y-1/4">
+                    <svg viewBox="0 0 1000 1000" className="w-[800px] h-[800px] text-teal-400 fill-current animate-spin-slow">
                         <path d="M500,0 C776.142375,0 1000,223.857625 1000,500 C1000,776.142375 776.142375,1000 500,1000 C223.857625,1000 0,776.142375 0,500 C0,223.857625 223.857625,0 500,0 Z" />
                     </svg>
                 </div>
+
+                {/* 3D Animated Shape */}
+                <HeroAnimation />
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
                     <div className="text-center max-w-3xl mx-auto">
@@ -90,7 +95,7 @@ const Home = () => {
                             className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-8"
                         >
                             Don't Miss the <br />
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+                            <span className="text-gradient-teal">
                                 Campus Buzz
                             </span>
                         </motion.h1>
@@ -124,41 +129,57 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* Statistics Counter Section */}
+            <StatsSection />
+
             {/* Upcoming/Recent Events Section */}
-            <section className="py-20 bg-gray-900/50">
+            <section className="py-20 bg-black/30">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-12">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-center mb-12"
+                    >
                         <h2 className="text-3xl font-bold text-white mb-4">Latest Events</h2>
                         <p className="text-gray-400">Check out what's new on campus</p>
-                    </div>
+                    </motion.div>
 
                     {loading ? (
                         <div className="text-center text-white">Loading events...</div>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            {recentEvents.map(event => (
-                                <Link to={`/events`} key={event._id} className="block group">
-                                    <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg transition-transform transform group-hover:-translate-y-2 group-hover:shadow-2xl border border-gray-700">
-                                        <div className="h-48 overflow-hidden">
-                                            <img src={event.image || 'https://via.placeholder.com/400x200'} alt={event.title} className="w-full h-full object-cover transition-transform group-hover:scale-110" />
-                                        </div>
-                                        <div className="p-6">
-                                            <div className="flex justify-between items-start mb-2">
-                                                <span className="bg-indigo-600 text-white text-xs px-2 py-1 rounded-full">{event.category}</span>
-                                                <span className="text-gray-400 text-sm">{new Date(event.date).toLocaleDateString()}</span>
+                            {recentEvents.map((event, index) => (
+                                <motion.div
+                                    key={event._id}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.1 }}
+                                >
+                                    <Link to={`/events`} className="block group">
+                                        <div className="glass-effect rounded-xl overflow-hidden shadow-lg transition-all duration-300 transform group-hover:-translate-y-2 group-hover:shadow-teal-500/20 group-hover:shadow-2xl border-glow">
+                                            <div className="h-48 overflow-hidden">
+                                                <img src={event.image || 'https://via.placeholder.com/400x200'} alt={event.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                                             </div>
-                                            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">{event.title}</h3>
-                                            <p className="text-gray-400 text-sm line-clamp-2">{event.description}</p>
+                                            <div className="p-6">
+                                                <div className="flex justify-between items-start mb-2">
+                                                    <span className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white text-xs px-3 py-1 rounded-full">{event.category}</span>
+                                                    <span className="text-gray-400 text-sm">{new Date(event.date).toLocaleDateString()}</span>
+                                                </div>
+                                                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-teal-400 transition-colors">{event.title}</h3>
+                                                <p className="text-gray-400 text-sm line-clamp-2">{event.description}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </Link>
+                                    </Link>
+                                </motion.div>
                             ))}
                         </div>
                     )}
 
                     <div className="text-center mt-12">
                         <Link to="/events">
-                            <Button variant="ghost" className="text-indigo-400 hover:text-indigo-300">
+                            <Button variant="ghost" className="text-teal-400 hover:text-teal-300">
                                 View All Events <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
                         </Link>
@@ -172,17 +193,17 @@ const Home = () => {
                     <div className="grid md:grid-cols-3 gap-12">
                         {[
                             {
-                                icon: <Calendar className="h-8 w-8 text-indigo-600" />,
+                                icon: <Calendar className="h-8 w-8 text-teal-400" />,
                                 title: "Never Miss an Event",
                                 description: "Stay updated with real-time notifications for all upcoming club activities and workshops."
                             },
                             {
-                                icon: <Users className="h-8 w-8 text-purple-600" />,
+                                icon: <Users className="h-8 w-8 text-cyan-400" />,
                                 title: "Connect with Societies",
                                 description: "Explore various clubs, matching your interests from Music to Astronomy."
                             },
                             {
-                                icon: <Star className="h-8 w-8 text-pink-600" />,
+                                icon: <Star className="h-8 w-8 text-teal-300" />,
                                 title: "Smart Recommendations",
                                 description: "Our AI filters events based on your passions so you only see what matters."
                             }
@@ -193,9 +214,9 @@ const Home = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className="bg-gray-800/50 backdrop-blur-md rounded-2xl p-8 hover:shadow-xl transition-shadow duration-300 border border-white/10"
+                                className="glass-effect rounded-2xl p-8 hover:shadow-xl hover:shadow-teal-500/10 transition-all duration-300 border-glow"
                             >
-                                <div className="bg-gray-700/50 rounded-xl p-4 w-fit shadow-sm mb-6">
+                                <div className="bg-teal-500/10 rounded-xl p-4 w-fit shadow-sm mb-6 border border-teal-500/20">
                                     {feature.icon}
                                 </div>
                                 <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
@@ -208,9 +229,87 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Stats/Social Proof (Optional, keeping simple for now) */}
+            {/* Footer */}
+            <Footer />
 
         </div>
+    );
+};
+
+// Counter-up Statistics Component
+const StatsSection = () => {
+    const [counts, setCounts] = useState({ events: 0, users: 0, registrations: 0 });
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true });
+
+    useEffect(() => {
+        if (isInView) {
+            const duration = 2000; // 2 seconds
+            const steps = 60;
+            const interval = duration / steps;
+
+            const targets = { events: 150, users: 500, registrations: 1200 };
+            let currentStep = 0;
+
+            const timer = setInterval(() => {
+                currentStep++;
+                const progress = currentStep / steps;
+
+                setCounts({
+                    events: Math.floor(targets.events * progress),
+                    users: Math.floor(targets.users * progress),
+                    registrations: Math.floor(targets.registrations * progress)
+                });
+
+                if (currentStep >= steps) {
+                    setCounts(targets);
+                    clearInterval(timer);
+                }
+            }, interval);
+
+            return () => clearInterval(timer);
+        }
+    }, [isInView]);
+
+    const stats = [
+        { label: 'Events Hosted', value: counts.events, suffix: '+', icon: Calendar },
+        { label: 'Active Students', value: counts.users, suffix: '+', icon: Users },
+        { label: 'Total Registrations', value: counts.registrations, suffix: '+', icon: TrendingUp }
+    ];
+
+    return (
+        <section ref={ref} className="py-20 relative">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {stats.map((stat, index) => {
+                        const Icon = stat.icon;
+                        return (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1, duration: 0.5 }}
+                                className="glass-effect rounded-2xl p-8 text-center border-glow hover:shadow-teal-500/20 hover:shadow-2xl transition-all duration-300"
+                            >
+                                <div className="flex justify-center mb-4">
+                                    <div className="bg-gradient-to-br from-teal-500/20 to-cyan-500/20 p-4 rounded-full border border-teal-400/30">
+                                        <Icon className="h-8 w-8 text-teal-400" />
+                                    </div>
+                                </div>
+                                <motion.div
+                                    className="text-5xl font-bold text-gradient-teal mb-2"
+                                    key={counts[Object.keys(counts)[index]]}
+                                >
+                                    {stat.value}{stat.suffix}
+                                </motion.div>
+                                <p className="text-gray-400 text-lg">{stat.label}</p>
+                            </motion.div>
+                        );
+                    })}
+                </div>
+            </div>
+        </section>
     );
 };
 

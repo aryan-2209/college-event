@@ -29,6 +29,11 @@ app.use('/api/events', eventRoutes);
 app.use('/api/registrations', registrationRoutes);
 app.use('/api/recommendations', recommendationRoutes);
 
+// Email Scheduler
+const scheduleEmailConfig = require('./cron/emailScheduler');
+scheduleEmailConfig();
+
+
 app.get('/', (req, res) => {
     res.send('API is running...');
 });

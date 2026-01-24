@@ -1,0 +1,167 @@
+(node:33856) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+MongoDB Connected
+Checking for events between Sat Jan 24 2026 00:00:00 GMT+0530 (India Standard Time) and Sat Jan 24 2026 23:59:59 GMT+0530 (India Standard Time)
+Found 1 events for tomorrow.
+Found 8 students.
+Processing event: check events
+Error sending email: Error: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d9443c01a7336-2a802daa647sm13083605ad.7 - gsmtp
+    at SMTPConnection._formatError (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:1617:34)
+    at SMTPConnection.<anonymous> (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:518:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5) {
+  code: 'EAUTH',
+  response: '534-5.7.9 Application-specific password required. For more information, go to\n' +
+    '534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d9443c01a7336-2a802daa647sm13083605ad.7 - gsmtp',
+  responseCode: 534,
+  command: 'AUTH PLAIN'
+}
+Failed to send email to aryan@gmail.com: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d9443c01a7336-2a802daa647sm13083605ad.7 - gsmtp
+Error sending email: Error: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d2e1a72fcca58-8231873e6bcsm1486414b3a.54 - gsmtp
+    at SMTPConnection._formatError (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:1617:34)
+    at SMTPConnection.<anonymous> (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:518:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5) {
+  code: 'EAUTH',
+  response: '534-5.7.9 Application-specific password required. For more information, go to\n' +
+    '534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d2e1a72fcca58-8231873e6bcsm1486414b3a.54 - gsmtp',
+  responseCode: 534,
+  command: 'AUTH PLAIN'
+}
+Failed to send email to payal@gmail.com: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d2e1a72fcca58-8231873e6bcsm1486414b3a.54 - gsmtp
+Error sending email: Error: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 98e67ed59e1d1-3536b05c499sm705081a91.2 - gsmtp
+    at SMTPConnection._formatError (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:1617:34)
+    at SMTPConnection.<anonymous> (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:518:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5) {
+  code: 'EAUTH',
+  response: '534-5.7.9 Application-specific password required. For more information, go to\n' +
+    '534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 98e67ed59e1d1-3536b05c499sm705081a91.2 - gsmtp',
+  responseCode: 534,
+  command: 'AUTH PLAIN'
+}
+Failed to send email to aryan1@gmail.com: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 98e67ed59e1d1-3536b05c499sm705081a91.2 - gsmtp
+Error sending email: Error: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d9443c01a7336-2a802f978adsm13445425ad.64 - gsmtp
+    at SMTPConnection._formatError (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:1617:34)
+    at SMTPConnection.<anonymous> (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:518:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5) {
+  code: 'EAUTH',
+  response: '534-5.7.9 Application-specific password required. For more information, go to\n' +
+    '534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d9443c01a7336-2a802f978adsm13445425ad.64 - gsmtp',
+  responseCode: 534,
+  command: 'AUTH PLAIN'
+}
+Failed to send email to aryan2@gmail.com: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d9443c01a7336-2a802f978adsm13445425ad.64 - gsmtp
+Error sending email: Error: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d2e1a72fcca58-82318646cc4sm1480595b3a.7 - gsmtp
+    at SMTPConnection._formatError (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:1617:34)
+    at SMTPConnection.<anonymous> (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:518:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5) {
+  code: 'EAUTH',
+  response: '534-5.7.9 Application-specific password required. For more information, go to\n' +
+    '534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d2e1a72fcca58-82318646cc4sm1480595b3a.7 - gsmtp',
+  responseCode: 534,
+  command: 'AUTH PLAIN'
+}
+Failed to send email to payal1@gmail.com: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d2e1a72fcca58-82318646cc4sm1480595b3a.7 - gsmtp
+Error sending email: Error: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 98e67ed59e1d1-3536f399352sm492238a91.13 - gsmtp
+    at SMTPConnection._formatError (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:1617:34)
+    at SMTPConnection.<anonymous> (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:518:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5) {
+  code: 'EAUTH',
+  response: '534-5.7.9 Application-specific password required. For more information, go to\n' +
+    '534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 98e67ed59e1d1-3536f399352sm492238a91.13 - gsmtp',
+  responseCode: 534,
+  command: 'AUTH PLAIN'
+}
+Failed to send email to alien@gmail.com: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 98e67ed59e1d1-3536f399352sm492238a91.13 - gsmtp
+Error sending email: Error: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d2e1a72fcca58-823181af903sm1536658b3a.0 - gsmtp
+    at SMTPConnection._formatError (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:1617:34)
+    at SMTPConnection.<anonymous> (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:518:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5) {
+  code: 'EAUTH',
+  response: '534-5.7.9 Application-specific password required. For more information, go to\n' +
+    '534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d2e1a72fcca58-823181af903sm1536658b3a.0 - gsmtp',
+  responseCode: 534,
+  command: 'AUTH PLAIN'
+}
+Failed to send email to 22it3010@rgipt.ac.in: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d2e1a72fcca58-823181af903sm1536658b3a.0 - gsmtp
+Error sending email: Error: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d2e1a72fcca58-82318644989sm1486625b3a.13 - gsmtp
+    at SMTPConnection._formatError (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:809:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:1617:34)
+    at SMTPConnection.<anonymous> (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:556:26)
+    at SMTPConnection._processResponse (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:993:20)
+    at SMTPConnection._onData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:774:14)
+    at SMTPConnection._onSocketData (C:\Users\DELL\OneDrive\Desktop\events\server\node_modules\nodemailer\lib\smtp-connection\index.js:195:44)
+    at TLSSocket.emit (node:events:518:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5) {
+  code: 'EAUTH',
+  response: '534-5.7.9 Application-specific password required. For more information, go to\n' +
+    '534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d2e1a72fcca58-82318644989sm1486625b3a.13 - gsmtp',
+  responseCode: 534,
+  command: 'AUTH PLAIN'
+}
+Failed to send email to 22it3028@rgipt.ac.in: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor d2e1a72fcca58-82318644989sm1486625b3a.13 - gsmtp

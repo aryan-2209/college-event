@@ -1,0 +1,72 @@
+.hero-animation-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    perspective: 1200px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.geometric-shape {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: rotate3d 12s linear infinite;
+    will-change: transform;
+}
+
+.shape-segment {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    background: linear-gradient(135deg,
+            rgba(20, 184, 166, 0.15) 0%,
+            rgba(6, 182, 212, 0.25) 50%,
+            rgba(20, 184, 166, 0.15) 100%);
+    border: 1px solid rgba(20, 184, 166, 0.4);
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 20px rgba(20, 184, 166, 0.2);
+    left: 50%;
+    top: 50%;
+    margin-left: -70px;
+    margin-top: -70px;
+    will-change: transform;
+}
+
+@keyframes rotate3d {
+    0% {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-animation-container {
+        width: 250px;
+        height: 250px;
+        opacity: 0.6;
+    }
+
+    .shape-segment {
+        width: 80px;
+        height: 80px;
+        margin-left: -40px;
+        margin-top: -40px;
+    }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    .geometric-shape {
+        animation: none;
+    }
+}
