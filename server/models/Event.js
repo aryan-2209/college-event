@@ -8,6 +8,7 @@ const eventSchema = new mongoose.Schema({
     organizer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     image: { type: String, required: true }, // Cloudinary URL
     category: { type: String, required: true }, // e.g. Cultural, Technical, Placement
+    registrationFee: { type: Number, default: 0 },
     tags: [{ type: String }], // For recommendation system
 }, { timestamps: true });
 

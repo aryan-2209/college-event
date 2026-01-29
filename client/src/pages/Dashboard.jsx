@@ -24,9 +24,11 @@ const Dashboard = () => {
     const [selectedEvent, setSelectedEvent] = useState(null);
     const navigate = useNavigate();
 
-    const fetchData = async () => {
+    const fetchData = async (isRefresh = false) => {
         try {
-            setLoading(true);
+            if (!isRefresh) {
+                setLoading(true);
+            }
             const token = localStorage.getItem('token');
             if (!token) {
                 // For demo purposes, we will not redirect if no token, just to show UI
@@ -67,13 +69,15 @@ const Dashboard = () => {
             if (token) {
                 const config = { headers: { Authorization: `Bearer ${token}` } };
                 const regRes = await axios.get('http://localhost:5000/api/registrations/my-registrations', config);
-                setRegistrations(regRes.data.filter(r => r.status === 'registered').map(r => r.event._id)); // Assuming backend returns populated event object or we just need ID
+                setRegistrations(regRes.data.filter(r => r.status === 'registered' && r.event).map(r => r.event._id)); // Assuming backend returns populated event object or we just need ID
             }
 
         } catch (error) {
             console.error('Error fetching dashboard data:', error);
         } finally {
-            setLoading(false);
+            if (!isRefresh) {
+                setLoading(false);
+            }
         }
     };
 
@@ -107,6 +111,9 @@ const Dashboard = () => {
 
             // Add to registrations array (storing just IDs for UI check)
             setRegistrations(prev => [...prev, eventId]);
+
+            // Refresh data to ensure everything is in sync
+            await fetchData(true);
 
             // Don't close modal here - let the modal show success screen
             // The modal will close itself when user clicks "Close" button

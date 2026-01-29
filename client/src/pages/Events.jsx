@@ -46,7 +46,7 @@ const Events = () => {
             if (token) {
                 const config = { headers: { Authorization: `Bearer ${token}` } };
                 const regRes = await axios.get('http://localhost:5000/api/registrations/my-registrations', config);
-                setRegistrations(regRes.data.filter(r => r.status === 'registered').map(r => r.event._id));
+                setRegistrations(regRes.data.filter(r => r.status === 'registered' && r.event).map(r => r.event._id));
             }
         } catch (error) {
             console.error('Error fetching events:', error);
@@ -101,6 +101,9 @@ const Events = () => {
 
             // Add to registrations array
             setRegistrations(prev => [...prev, eventId]);
+
+            // Refresh events to ensure sync
+            fetchEvents();
 
             // Don't close modal here - let the modal show success screen
         } catch (error) {

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
+import RegistrationModal from '../components/RegistrationModal';
 import { Calendar, MapPin, Tag, User, Clock, ArrowLeft } from 'lucide-react';
 
 const EventDetails = () => {
@@ -45,23 +46,35 @@ const EventDetails = () => {
         fetchEventDetails();
     }, [id]);
 
-    const handleRegister = async () => {
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const handleRegisterClick = () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login');
+            return;
+        }
+        setModalOpen(true);
+    };
+
+    const handleConfirmRegistration = async (eventId, details) => {
         try {
             setRegistering(true);
             const token = localStorage.getItem('token');
-            if (!token) {
-                navigate('/login');
-                return;
-            }
-
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            const res = await axios.post('http://localhost:5000/api/registrations', { eventId: id }, config);
+
+            // Note: details from modal could be used here if backend supported updating user info during reg
+            // For now we just use eventId as before
+
+            const res = await axios.post('http://localhost:5000/api/registrations', { eventId }, config);
 
             setIsRegistered(true);
             setRegistrationId(res.data._id);
-            alert('Registered successfully!');
+            // Modal shows success screen, so we don't alert here
         } catch (error) {
+            console.error(error);
             alert(error.response?.data?.message || 'Registration failed');
+            throw error;
         } finally {
             setRegistering(false);
         }
@@ -195,7 +208,7 @@ const EventDetails = () => {
                                 <Button
                                     variant="primary"
                                     className="w-full text-lg py-3"
-                                    onClick={handleRegister}
+                                    onClick={handleRegisterClick}
                                     disabled={registering}
                                 >
                                     {registering ? 'Registering...' : 'Register for Event'}
@@ -205,6 +218,13 @@ const EventDetails = () => {
                     </div>
                 </div>
             </div>
+
+            <RegistrationModal
+                isOpen={modalOpen}
+                onClose={() => setModalOpen(false)}
+                event={event}
+                onConfirm={handleConfirmRegistration}
+            />
         </div>
     );
 };

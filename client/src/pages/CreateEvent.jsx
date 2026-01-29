@@ -13,6 +13,7 @@ const CreateEvent = () => {
         date: '',
         location: '',
         category: 'Cultural', // Default
+        registrationFee: '',
         tags: '',
     });
     const [image, setImage] = useState(null);
@@ -203,6 +204,24 @@ const CreateEvent = () => {
                                         placeholder="Music, Live, Concert"
                                         value={formData.tags}
                                         onChange={handleChange}
+                                    />
+                                </div>
+                            </motion.div>
+
+                            <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
+                                <label className={labelClasses}>Registration Fee (₹)</label>
+                                <div className="relative rounded-md shadow-sm">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <span className="text-gray-400 font-bold">₹</span>
+                                    </div>
+                                    <input
+                                        type="number"
+                                        name="registrationFee"
+                                        className={inputClasses}
+                                        placeholder="0 for Free"
+                                        value={formData.registrationFee}
+                                        onChange={handleChange}
+                                        min="0"
                                     />
                                 </div>
                             </motion.div>

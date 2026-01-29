@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Event = require('./models/Event');
 const User = require('./models/User');
+const Registration = require('./models/Registration');
 
 dotenv.config();
 
@@ -14,7 +15,8 @@ const MOCK_EVENTS = [
         category: "Music Club",
         tags: ["Live", "Classical", "Orchestra"],
         image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1000",
-        description: "A night of classical symphony."
+        description: "A night of classical symphony.",
+        registrationFee: 100
     },
     {
         title: "Acoustic Jam Session",
@@ -32,7 +34,8 @@ const MOCK_EVENTS = [
         category: "Music Club",
         tags: ["Rock", "Competition", "High Energy"],
         image: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&q=80&w=1000",
-        description: "Battle of the best rock bands."
+        description: "Battle of the best rock bands.",
+        registrationFee: 50
     },
     {
         title: "Jazz & Blues Evening",
@@ -52,7 +55,8 @@ const MOCK_EVENTS = [
         category: "Dance Club",
         tags: ["Dance", "Party", "Social"],
         image: "https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&q=80&w=1000",
-        description: "The biggest dance gala of the year."
+        description: "The biggest dance gala of the year.",
+        registrationFee: 300
     },
     {
         title: "Hip Hop Faceoff",
@@ -90,7 +94,8 @@ const MOCK_EVENTS = [
         category: "E-Cell",
         tags: ["Business", "Networking", "Startup"],
         image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=1000",
-        description: "Network with startup founders."
+        description: "Network with startup founders.",
+        registrationFee: 100
     },
     {
         title: "Idea Pitchathon",
@@ -157,7 +162,8 @@ const MOCK_EVENTS = [
         category: "Coding Club",
         tags: ["Hackathon", "Coding", "Competition"],
         image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&q=80&w=1000",
-        description: "24-hour coding hackathon with amazing prizes."
+        description: "24-hour coding hackathon with amazing prizes.",
+        registrationFee: 50
     },
     {
         title: "Web Development Workshop",
@@ -166,7 +172,8 @@ const MOCK_EVENTS = [
         category: "Coding Club",
         tags: ["Workshop", "Web Dev", "Learning"],
         image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1000",
-        description: "Learn modern web development with React and Node.js."
+        description: "Learn modern web development with React and Node.js.",
+        registrationFee: 50
     },
     {
         title: "AI/ML Bootcamp",
@@ -204,7 +211,8 @@ const MOCK_EVENTS = [
         category: "Sports Club",
         tags: ["Badminton", "Tournament", "Competition"],
         image: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&q=80&w=1000",
-        description: "Annual inter-college badminton championship."
+        description: "Annual inter-college badminton championship.",
+        registrationFee: 100
     },
     {
         title: "Football League Finals",
@@ -222,7 +230,8 @@ const MOCK_EVENTS = [
         category: "Sports Club",
         tags: ["Cricket", "Tournament", "Team"],
         image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80&w=1000",
-        description: "Inter-department cricket tournament."
+        description: "Inter-department cricket tournament.",
+        registrationFee: 200
     },
     {
         title: "Marathon Run 2024",
@@ -269,13 +278,20 @@ const seedDB = async () => {
             organizer = await newUser.save();
         }
 
-        console.log(`Using organizer: ${organizer.name} (${organizer._id})`);
-
-        // Clear existing events to allow reseeding
-        const count = await Event.countDocuments();
         if (count > 0) {
             console.log(`Clearing ${count} existing events...`);
             await Event.deleteMany({});
+        }
+
+        // Clear all registrations to ensure no orphaned data
+        await Registration.deleteMany({});
+        console.log("Cleared all existing registrations.");
+
+        // Also clear registrations from users to avoid "Unknown Event"
+        const users = await User.find();
+        if (users.length > 0) {
+            console.log("Clearing user registrations...");
+            await User.updateMany({}, { $set: { registeredEvents: [] } });
         }
 
         const eventsToInsert = MOCK_EVENTS.map(event => ({

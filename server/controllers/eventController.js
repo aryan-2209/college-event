@@ -4,7 +4,7 @@ const sendEmail = require('../utils/sendEmail');
 
 exports.createEvent = async (req, res) => {
     try {
-        const { title, description, date, location, category, tags } = req.body;
+        const { title, description, date, location, category, tags, registrationFee } = req.body;
         const image = req.file ? req.file.path : '';
 
         const newEvent = new Event({
@@ -15,6 +15,7 @@ exports.createEvent = async (req, res) => {
             organizer: req.user.id,
             image,
             category,
+            registrationFee: registrationFee || 0,
             tags: tags ? tags.split(',') : []
         });
 

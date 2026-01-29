@@ -33,9 +33,14 @@ const EventCard = ({ event, onRegister, onDeregister, onDelete, isRegistered }) 
 
             <div className="p-5 flex flex-col flex-grow">
                 <Link to={`/events/${event._id}`}>
-                    <h3 className="text-xl font-bold text-white mb-2 truncate group-hover:text-indigo-400 transition-colors" title={event.title}>
-                        {event.title}
-                    </h3>
+                    <div className="flex justify-between items-start mb-2">
+                        <h3 className="text-xl font-bold text-white truncate group-hover:text-indigo-400 transition-colors flex-1 mr-2" title={event.title}>
+                            {event.title}
+                        </h3>
+                        <span className={`px-2 py-1 rounded text-sm font-semibold whitespace-nowrap ${event.registrationFee > 0 ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30' : 'bg-green-500/20 text-green-300 border border-green-500/30'}`}>
+                            {event.registrationFee > 0 ? `₹${event.registrationFee}` : 'Free'}
+                        </span>
+                    </div>
                 </Link>
 
                 <div className="space-y-2 mb-4 flex-grow">
