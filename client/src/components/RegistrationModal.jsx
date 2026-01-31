@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Calendar, MapPin, User, Mail, Phone, CheckCircle, ShieldCheck, Lock } from 'lucide-react';
 import Button from './Button';
+import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
 // Logic Steps:
@@ -52,24 +53,45 @@ const RegistrationModal = ({ isOpen, onClose, event, onConfirm }) => {
     const handleVerifyTransaction = async (e) => {
         e.preventDefault();
         setLoading(true);
-        // Simulate verifying Transaction ID
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setLoading(false);
-        setStep(3); // Go to OTP Step
+        try {
+            // Simulate verifying Transaction ID locally
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // Send Real OTP
+            const token = localStorage.getItem('token');
+            const config = { headers: { Authorization: `Bearer ${token}` } };
+            await axios.post('http://localhost:5000/api/auth/send-otp', {}, config);
+
+            setStep(3); // Go to OTP Step
+        } catch (error) {
+            console.error("Failed to send OTP", error);
+            alert("Failed to send OTP. Please try again.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleVerifyOtp = async (e) => {
         e.preventDefault();
         setLoading(true);
-        // Simulate OTP check
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setLoading(false);
-        setStep(4); // Payment Success Step
+        try {
+            // Verify Real OTP
+            const token = localStorage.getItem('token');
+            const config = { headers: { Authorization: `Bearer ${token}` } };
+            await axios.post('http://localhost:5000/api/auth/verify-otp', { otp }, config);
 
-        // Auto-advance to final registration after showing success animation
-        setTimeout(() => {
-            submitRegistration();
-        }, 2000);
+            setStep(4); // Payment Success Step
+
+            // Auto-advance to final registration after showing success animation
+            setTimeout(() => {
+                submitRegistration();
+            }, 2000);
+        } catch (error) {
+            console.error("OTP Verification failed", error);
+            alert(error.response?.data?.message || "Invalid OTP");
+        } finally {
+            setLoading(false);
+        }
     };
 
     const submitRegistration = async () => {

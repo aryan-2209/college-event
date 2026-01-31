@@ -106,3 +106,70 @@ exports.updateProfile = async (req, res) => {
     }
 };
 
+const sendEmail = require('../utils/sendEmail');
+
+exports.sendOTP = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Generate 6 digit OTP
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        const otpExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+
+        user.otp = otp;
+        user.otpExpires = otpExpires;
+        await user.save();
+
+        const message = `Your OTP for payment verification is: ${otp}\n\nThis code expires in 10 minutes.`;
+
+        await sendEmail({
+            email: user.email,
+            subject: 'Event Payment Verification OTP',
+            message
+        });
+
+        res.status(200).json({ message: 'OTP sent to email' });
+    } catch (error) {
+        console.error("OTP Error", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+exports.verifyOTP = async (req, res) => {
+    try {
+        const { otp } = req.body;
+        const userId = req.user.id;
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (!user.otp || !user.otpExpires) {
+            return res.status(400).json({ message: 'No OTP requested' });
+        }
+
+        if (user.otp !== otp) {
+            return res.status(400).json({ message: 'Invalid OTP' });
+        }
+
+        if (user.otpExpires < Date.now()) {
+            return res.status(400).json({ message: 'OTP expired' });
+        }
+
+        // Clear OTP after success
+        user.otp = undefined;
+        user.otpExpires = undefined;
+        await user.save();
+
+        res.status(200).json({ message: 'OTP verified successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+

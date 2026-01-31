@@ -10,6 +10,11 @@ const eventSchema = new mongoose.Schema({
     category: { type: String, required: true }, // e.g. Cultural, Technical, Placement
     registrationFee: { type: Number, default: 0 },
     tags: [{ type: String }], // For recommendation system
+    winners: {
+        first: { type: String, default: null },
+        second: { type: String, default: null },
+        third: { type: String, default: null }
+    }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Event', eventSchema);

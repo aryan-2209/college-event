@@ -9,6 +9,7 @@ const Dashboard = React.lazy(() => import('./pages/Dashboard'));
 const CreateEvent = React.lazy(() => import('./pages/CreateEvent'));
 const EventDetails = React.lazy(() => import('./pages/EventDetails'));
 const Events = React.lazy(() => import('./pages/Events'));
+const Results = React.lazy(() => import('./pages/Results'));
 const Contact = React.lazy(() => import('./pages/Contact'));
 const Profile = React.lazy(() => import('./pages/Profile'));
 
@@ -41,6 +42,11 @@ function App() {
                         <Route path="/events" element={
                             <React.Suspense fallback={<div>Loading...</div>}>
                                 <Events />
+                            </React.Suspense>
+                        } />
+                        <Route path="/results" element={
+                            <React.Suspense fallback={<div>Loading...</div>}>
+                                <Results />
                             </React.Suspense>
                         } />
                         <Route path="/contact" element={

@@ -33,6 +33,9 @@ const Navbar = () => {
                         <Link to="/events" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
                             Explore Events
                         </Link>
+                        <Link to="/results" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                            Results
+                        </Link>
                         {(user?.role === 'admin' || user?.role === 'club') && (
                             <Link to="/create-event" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
                                 Create Event
@@ -86,6 +89,9 @@ const Navbar = () => {
                         <div className="px-4 pt-2 pb-6 space-y-2">
                             <Link to="/events" className="block py-2 text-gray-600 hover:text-indigo-600 font-medium">
                                 Explore Events
+                            </Link>
+                            <Link to="/results" className="block py-2 text-gray-600 hover:text-indigo-600 font-medium">
+                                Results
                             </Link>
                             <Link to="/contact" className="block py-2 text-gray-600 hover:text-indigo-600 font-medium">
                                 Contact

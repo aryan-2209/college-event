@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
 
     // Club specific fields
     description: { type: String }, // Club description
+
+    // OTP for verification
+    otp: { type: String },
+    otpExpires: { type: Date }
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

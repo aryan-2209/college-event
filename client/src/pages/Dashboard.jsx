@@ -4,7 +4,7 @@ import EventCard from '../components/EventCard';
 import RegistrationModal from '../components/RegistrationModal';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, RefreshCw, Sparkles, Zap, Calendar, Search } from 'lucide-react';
+import { LogOut, RefreshCw, Sparkles, Zap, Calendar, Search, Trophy } from 'lucide-react';
 import Button from '../components/Button';
 import { useAuth } from '../context/AuthContext';
 
@@ -228,6 +228,8 @@ const Dashboard = () => {
                         </div>
                     </section>
                 )}
+
+
 
                 {/* All Events Section */}
                 <section>

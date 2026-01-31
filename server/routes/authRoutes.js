@@ -9,4 +9,9 @@ router.post('/register', upload.single('photo'), register);
 router.post('/login', login);
 router.put('/profile', protect, upload.single('photo'), updateProfile);
 
+// OTP Routes
+const { sendOTP, verifyOTP } = require('../controllers/authController');
+router.post('/send-otp', protect, sendOTP);
+router.post('/verify-otp', protect, verifyOTP);
+
 module.exports = router;
